@@ -3,6 +3,8 @@ package ru.mail.LukashevichDV;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 public class Calculator {
@@ -370,5 +372,10 @@ public class Calculator {
     public void btnStyleFunctions(JButton button) {
         button.setFont(new Font("Tahoma", Font.BOLD, 20));
         button.setBackground(Color.LIGHT_GRAY);
+    }
+
+
+    public void smq() {
+
     }
 }
