@@ -374,8 +374,4 @@ public class Calculator {
         button.setBackground(Color.LIGHT_GRAY);
     }
 
-
-    public void smq() {
-
-    }
 }
