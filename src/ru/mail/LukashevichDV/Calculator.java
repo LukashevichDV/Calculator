@@ -3,8 +3,6 @@ package ru.mail.LukashevichDV;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 public class Calculator {
@@ -12,7 +10,7 @@ public class Calculator {
     private JFrame frame;
     private JTextField display;
     private JPanel panel;
-    private JPanel panelNumbers;
+    private JPanel panelButtons;
 
     double firstNumber;
     double secondNumber;
@@ -26,7 +24,7 @@ public class Calculator {
                     Calculator window = new Calculator();
                     window.frame.setVisible(true);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                   e.printStackTrace();
                 }
             }
         });
@@ -54,9 +52,9 @@ public class Calculator {
         display.setHorizontalAlignment(SwingConstants.RIGHT);
         panel.add(display, BorderLayout.NORTH);
 
-        panelNumbers = new JPanel();
-        panelNumbers.setLayout(new GridLayout(5, 4, 1, 1));
-        panelNumbers.setBackground(Color.BLACK);
+        panelButtons = new JPanel();
+        panelButtons.setLayout(new GridLayout(5, 4, 1, 1));
+        panelButtons.setBackground(Color.BLACK);
 
         //<--------------------------------------- row # 1 ------------------------------------------->
 
@@ -65,22 +63,20 @@ public class Calculator {
         btnSQRT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 try {
                     if (Double.parseDouble(display.getText()) > 0) {
                         result = Math.sqrt(Double.parseDouble(display.getText()));
                         display.setText(Double.toString(result));
                     } else {
-                        display.setBackground(Color.orange);
-                        display.setText("Format input illegal ! ");
+                        throw new MyException();
                     }
                 } catch (NumberFormatException e1) {
-                    display.setBackground(Color.orange);
-                    display.setText("Format input illegal ! ");
+                    throw new MyException();
                 }
             }
         });
-        panelNumbers.add(btnSQRT);
+        panelButtons.add(btnSQRT);
+
 
         JButton btnClear = new JButton("C");
         btnStyleFunctions(btnClear);
@@ -91,7 +87,8 @@ public class Calculator {
                 display.setText(null);
             }
         });
-        panelNumbers.add(btnClear);
+        panelButtons.add(btnClear);
+
 
         JButton btnBackspace = new JButton("\uF0E7");
         btnStyleFunctions(btnBackspace);
@@ -99,7 +96,6 @@ public class Calculator {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String backspace = null;
-
                 if (display.getText().length() > 0) {
                     StringBuilder stb = new StringBuilder(display.getText());
                     stb.deleteCharAt(display.getText().length() - 1);
@@ -110,7 +106,8 @@ public class Calculator {
         });
         btnBackspace.setFont(new Font("Windings", Font.BOLD, 20));
         btnBackspace.setBackground(Color.LIGHT_GRAY);
-        panelNumbers.add(btnBackspace);
+        panelButtons.add(btnBackspace);
+
 
         JButton btnDivide = new JButton("\u00F7");
         btnStyleFunctions(btnDivide);
@@ -121,14 +118,12 @@ public class Calculator {
                     firstNumber = Double.parseDouble(display.getText());
                     display.setText("");
                     operation = "/";
-
                 } catch (NumberFormatException e2) {
-                    display.setBackground(Color.orange);
-                    display.setText("Format input illegal ! ");
+                    throw new MyException();
                 }
             }
         });
-        panelNumbers.add(btnDivide);
+        panelButtons.add(btnDivide);
 
         //<--------------------------------------- row # 2 ------------------------------------------->
 
@@ -141,7 +136,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn7);
+        panelButtons.add(btn7);
+
 
         JButton btn8 = new JButton("8");
         btnStyleNumbers(btn8);
@@ -152,7 +148,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn8);
+        panelButtons.add(btn8);
+
 
         JButton btn9 = new JButton("9");
         btnStyleNumbers(btn9);
@@ -163,7 +160,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn9);
+        panelButtons.add(btn9);
+
 
         JButton btnMultiply = new JButton("\u00D7");
         btnStyleFunctions(btnMultiply);
@@ -175,12 +173,11 @@ public class Calculator {
                     display.setText("");
                     operation = "*";
                 } catch (NumberFormatException e2) {
-                    display.setBackground(Color.orange);
-                    display.setText("Format input illegal ! ");
+                    throw new MyException();
                 }
             }
         });
-        panelNumbers.add(btnMultiply);
+        panelButtons.add(btnMultiply);
 
         //<--------------------------------------- row # 3 ------------------------------------------->
 
@@ -193,7 +190,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn4);
+        panelButtons.add(btn4);
+
 
         JButton btn5 = new JButton("5");
         btnStyleNumbers(btn5);
@@ -204,7 +202,7 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn5);
+        panelButtons.add(btn5);
 
         JButton btn6 = new JButton("6");
         btnStyleNumbers(btn6);
@@ -215,7 +213,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn6);
+        panelButtons.add(btn6);
+
 
         JButton btnMinus = new JButton("\u2212");
         btnStyleFunctions(btnMinus);
@@ -227,12 +226,11 @@ public class Calculator {
                     display.setText("");
                     operation = "-";
                 } catch (NumberFormatException e2) {
-                    display.setBackground(Color.orange);
-                    display.setText("Format input illegal ! ");
+                    throw new MyException();
                 }
             }
         });
-        panelNumbers.add(btnMinus);
+        panelButtons.add(btnMinus);
 
         //<--------------------------------------- row # 4 ------------------------------------------->
 
@@ -245,7 +243,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn1);
+        panelButtons.add(btn1);
+
 
         JButton btn2 = new JButton("2");
         btnStyleNumbers(btn2);
@@ -256,7 +255,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn2);
+        panelButtons.add(btn2);
+
 
         JButton btn3 = new JButton("3");
         btnStyleNumbers(btn3);
@@ -267,7 +267,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn3);
+        panelButtons.add(btn3);
+
 
         JButton btnPlus = new JButton("+");
         btnStyleFunctions(btnPlus);
@@ -279,12 +280,11 @@ public class Calculator {
                     display.setText("");
                     operation = "+";
                 } catch (NumberFormatException e2) {
-                    display.setBackground(Color.orange);
-                    display.setText("Format input illegal ! ");
+                    throw new MyException();
                 }
             }
         });
-        panelNumbers.add(btnPlus);
+        panelButtons.add(btnPlus);
 
         //<--------------------------------------- row # 5 ------------------------------------------->
 
@@ -297,14 +297,14 @@ public class Calculator {
                     value = value * -1;
                     display.setText(Double.toString(value));
                 } catch (NumberFormatException e2) {
-                    display.setBackground(Color.orange);
-                    display.setText("Format input illegal ! ");
+                    throw new MyException();
                 }
             }
         });
         btnPlusMinus.setFont(new Font("Windings", Font.BOLD, 20));
         btnPlusMinus.setBackground(Color.white);
-        panelNumbers.add(btnPlusMinus);
+        panelButtons.add(btnPlusMinus);
+
 
         JButton btn0 = new JButton("0");
         btnStyleNumbers(btn0);
@@ -315,7 +315,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btn0);
+        panelButtons.add(btn0);
+
 
         JButton btnDot = new JButton(".");
         btnStyleNumbers(btnDot);
@@ -326,7 +327,8 @@ public class Calculator {
                 display.setText(enterNumber);
             }
         });
-        panelNumbers.add(btnDot);
+        panelButtons.add(btnDot);
+
 
         JButton btnResult = new JButton("=");
         btnStyleFunctions(btnResult);
@@ -353,25 +355,30 @@ public class Calculator {
                         result = firstNumber * secondNumber;
                         display.setText(Double.toString(result));
                     }
-                } catch (NumberFormatException e2) {
-                    display.setBackground(Color.orange);
-                    display.setText("Format input illegal ! ");
+                } catch (NumberFormatException e1) {
+                    throw new MyException();
                 }
             }
         });
-        panelNumbers.add(btnResult);
+        panelButtons.add(btnResult);
 
-        frame.getContentPane().add(panelNumbers, BorderLayout.CENTER);
+        frame.getContentPane().add(panelButtons, BorderLayout.CENTER);
     }
 
-    public void btnStyleNumbers(JButton button) {
+    private void btnStyleNumbers(JButton button) {
         button.setFont(new Font("Tahoma", Font.BOLD, 20));
         button.setBackground(Color.white);
     }
 
-    public void btnStyleFunctions(JButton button) {
+    private void btnStyleFunctions(JButton button) {
         button.setFont(new Font("Tahoma", Font.BOLD, 20));
         button.setBackground(Color.LIGHT_GRAY);
     }
 
+    private class MyException extends IllegalArgumentException {
+        public MyException() {
+            display.setBackground(Color.orange);
+            display.setText("Incorrect data entry !");
+        }
+    }
 }
